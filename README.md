@@ -44,7 +44,7 @@ Author Information
 
 Andrew Shagayev | [e-mail](mailto:drewshg@gmail.com)
 
-[role-badge]: https://img.shields.io/badge/role-drew__kun.macdock-green.svg
+[role-badge]: https://img.shields.io/badge/role-drew--kun.macdock-green.svg
 [galaxy-link]: https://galaxy.ansible.com/drew_kun/macdock/
 
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg

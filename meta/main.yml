@@ -13,7 +13,8 @@ galaxy_info:
     - all
 
   galaxy_tags:
-  - MacOS
-  - Dock
+  - macos
+  - osx
+  - dock
 
 dependencies: []
