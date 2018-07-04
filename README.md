@@ -1,4 +1,4 @@
-Ansible role: macos_setup
+Ansible role: macdock
 =========
 
 [![MIT licensed][mit-badge]][mit-link]
