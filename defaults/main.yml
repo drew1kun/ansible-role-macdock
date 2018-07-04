@@ -1,0 +1,54 @@
+---
+# defaults file for ansible-macdock
+
+macdock_items_remove_all: no
+
+macdock_remove_items:
+  - Siri
+  - Launchpad
+  - Mail
+  - Contacts
+  - Notes
+  - Reminders
+  - Maps
+  - Photos
+  - Messages
+  - FaceTime
+  - iTunes
+  - iBooks
+  - Calendar
+  - App Store
+
+macdock_add_items:
+  - name: Safari
+    path: "/Applications/Safari.app"
+    pos: 1
+  - name: Grab
+    path: "/Applications/Utilities/Grab.app"
+    pos: 2
+  - name: Calculator
+    path: "/Applications/Calculator.app"
+    pos: 3
+  - name: System Preferences
+    path: "/Applications/System Preferences.app"
+    pos: 4
+  - name: Console
+    path: "/Applications/Utilities/Console.app"
+    pos: 5
+  - name: Activity Monitor
+    path: "/Applications/Utilities/Activity Monitor.app"
+    pos: 6
+  - name: Network Utility
+    path: "/System/Library/CoreServices/Applications/Network Utility.app"
+    pos: 7
+  - name: Screen Sharing
+    path: "/System/Library/CoreServices/Applications/Screen Sharing.app"
+    pos: 8
+  - name: Terminal
+    path: "/Applications/Utilities/Terminal.app"
+    pos: 9
+  - name: Applications
+    path: "/Applications"
+    pos: first
+    section: others
+...

@@ -1,0 +1,7 @@
+---
+# handlers file for ansible-macdock
+
+- name: Restart Dock
+  shell: "killall Dock"
+  failed_when: false
+...
