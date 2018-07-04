@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: macdock
   author: Andrew Shagayev
   description: Ansible role for automatic Dock configuration on Mac OS.
 
