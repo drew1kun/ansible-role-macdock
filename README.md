@@ -30,9 +30,11 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: dev_clients
-      roles:
-         - role: drew_kun.macdock
+```yaml
+- hosts: dev_clients
+  roles:
+  - role: drew_kun.macdock
+```
 
 License
 -------
