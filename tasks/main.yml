@@ -9,11 +9,13 @@
   failed_when: false
   check_mode: no
   when: not macdock_items_remove_all|bool
+  tags: macdock
 
 - name: '[dock] Remove all dock items'
   shell: "/usr/local/bin/dockutil --remove all --no-restart"
   register: macdock_removed_items_task
   when: macdock_items_remove_all|bool
+  tags: macdock
 
 - name: '[dock] Remove all unwanted dock items'
   shell: "/usr/local/bin/dockutil --remove '{{ item.item }}' --no-restart"
@@ -24,6 +26,7 @@
   - not macdock_items_remove_all|bool
   - (item.item ~ " was found in persistent-apps") in item.stdout
   notify: Restart Dock
+  tags: macdock
 
 - name: '[dock] Get information on configured setup'
   shell: "/usr/local/bin/dockutil --find '{{ item.name }}'"
@@ -32,14 +35,20 @@
   changed_when: false
   failed_when: false
   check_mode: no
+  tags: macdock
 
 - name: '[dock] Add items to dock'
-  shell: "/usr/local/bin/dockutil --add '{{ item.item.path }}' --position {{ item.item.pos }} --no-restart"
+  shell: "/usr/local/bin/dockutil \
+          --add '{{ item.item.path }}' \
+          --position {{ item.item.pos }} \
+          --section {{ item.item.section | default('apps') }} \
+          --no-restart"
   with_items: "{{ macdock_dockutil.results }}"
   loop_control:
     label: "{{item.item}}"
   when: (item.item.name ~ " was not found in") in item.stdout
   notify: Restart Dock
+  tags: macdock
 
 - name: '[dock] Get information on current setup'
   shell: "/usr/local/bin/dockutil --find '{{ item.name }}'"
@@ -48,6 +57,7 @@
   changed_when: false
   failed_when: false
   check_mode: no
+  tags: macdock
 
 - name: '[dock] Moving items'
   shell: "/usr/local/bin/dockutil --move '{{ item.item.name }}' --position {{ item.item.pos }} --no-restart"
@@ -58,4 +68,5 @@
   - (item.item.name ~ " was found in persistent-apps at slot " ~ item.item.pos ~ " in") not in item.stdout
   - (item.item.name ~ " was not found") not in item.stdout
   notify: Restart Dock
+  tags: macdock
 ...

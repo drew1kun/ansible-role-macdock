@@ -23,6 +23,7 @@ macdock_add_items:
   - name: Safari
     path: "/Applications/Safari.app"
     pos: 1
+    section: apps  # `apps | others`. If not specified, it defaults to `apps`
   - name: Grab
     path: "/Applications/Utilities/Grab.app"
     pos: 2
