@@ -2,7 +2,7 @@
 # tasks file for ansible-macdock
 
 - name: '[dock] Get info about items to be removed'
-  shell: "/usr/local/bin/dockutil --find '{{ item }}'"
+  command: "/usr/local/bin/dockutil --find '{{ item }}'"
   register: macdock_items_remove
   with_items: "{{ macdock_remove_items }}"
   changed_when: false
@@ -12,13 +12,13 @@
   tags: macdock
 
 - name: '[dock] Remove all dock items'
-  shell: "/usr/local/bin/dockutil --remove all --no-restart"
+  command: "/usr/local/bin/dockutil --remove all --no-restart"
   register: macdock_removed_items_task
   when: macdock_items_remove_all|bool
   tags: macdock
 
 - name: '[dock] Remove all unwanted dock items'
-  shell: "/usr/local/bin/dockutil --remove '{{ item.item }}' --no-restart"
+  command: "/usr/local/bin/dockutil --remove '{{ item.item }}' --no-restart"
   with_items: "{{ macdock_items_remove.results }}"
   loop_control:
     label: "{{ item.item }}"
@@ -29,7 +29,7 @@
   tags: macdock
 
 - name: '[dock] Get information on configured setup'
-  shell: "/usr/local/bin/dockutil --find '{{ item.name }}'"
+  command: "/usr/local/bin/dockutil --find '{{ item.name }}'"
   register: macdock_dockutil
   with_items: "{{ macdock_add_items }}"
   changed_when: false
@@ -38,7 +38,7 @@
   tags: macdock
 
 - name: '[dock] Add items to dock'
-  shell: "/usr/local/bin/dockutil \
+  command: "/usr/local/bin/dockutil \
           --add '{{ item.item.path }}' \
           --position {{ item.item.pos }} \
           --section {{ item.item.section | default('apps') }} \
@@ -51,7 +51,7 @@
   tags: macdock
 
 - name: '[dock] Get information on current setup'
-  shell: "/usr/local/bin/dockutil --find '{{ item.name }}'"
+  command: "/usr/local/bin/dockutil --find '{{ item.name }}'"
   register: macdock_dockutil_current
   with_items: "{{ macdock_add_items }}"
   changed_when: false
@@ -60,7 +60,7 @@
   tags: macdock
 
 - name: '[dock] Moving items'
-  shell: "/usr/local/bin/dockutil --move '{{ item.item.name }}' --position {{ item.item.pos }} --no-restart"
+  command: "/usr/local/bin/dockutil --move '{{ item.item.name }}' --position {{ item.item.pos }} --no-restart"
   with_items: "{{ macdock_dockutil_current.results }}"
   loop_control:
     label: "{{ item.item }}"
