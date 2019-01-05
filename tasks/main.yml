@@ -21,7 +21,7 @@
   shell: "/usr/local/bin/dockutil --remove '{{ item.item }}' --no-restart"
   with_items: "{{ macdock_items_remove.results }}"
   loop_control:
-    label: "{{item.item}}"
+    label: "{{ item.item }}"
   when:
   - not macdock_items_remove_all|bool
   - (item.item ~ " was found in persistent-apps") in item.stdout
@@ -45,7 +45,7 @@
           --no-restart"
   with_items: "{{ macdock_dockutil.results }}"
   loop_control:
-    label: "{{item.item}}"
+    label: "{{ item.item }}"
   when: (item.item.name ~ " was not found in") in item.stdout
   notify: Restart Dock
   tags: macdock
@@ -63,7 +63,7 @@
   shell: "/usr/local/bin/dockutil --move '{{ item.item.name }}' --position {{ item.item.pos }} --no-restart"
   with_items: "{{ macdock_dockutil_current.results }}"
   loop_control:
-    label: "{{item.item}}"
+    label: "{{ item.item }}"
   when:
   - (item.item.name ~ " was found in persistent-apps at slot " ~ item.item.pos ~ " in") not in item.stdout
   - (item.item.name ~ " was not found") not in item.stdout
