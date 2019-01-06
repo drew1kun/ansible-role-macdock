@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible-macdock
 
-- name: '[dock] Get info about items to be removed'
+- name: "[macdock] Get info about items to be removed"
   command: "/usr/local/bin/dockutil --find '{{ item }}'"
   register: macdock_items_remove
   with_items: "{{ macdock_remove_items }}"
@@ -11,13 +11,13 @@
   when: not macdock_items_remove_all|bool
   tags: macdock
 
-- name: '[dock] Remove all dock items'
+- name: "[macdock] Remove all dock items"
   command: "/usr/local/bin/dockutil --remove all --no-restart"
   register: macdock_removed_items_task
   when: macdock_items_remove_all|bool
   tags: macdock
 
-- name: '[dock] Remove all unwanted dock items'
+- name: "[macdock] Remove all unwanted dock items"
   command: "/usr/local/bin/dockutil --remove '{{ item.item }}' --no-restart"
   with_items: "{{ macdock_items_remove.results }}"
   loop_control:
@@ -28,7 +28,7 @@
   notify: Restart Dock
   tags: macdock
 
-- name: '[dock] Get information on configured setup'
+- name: "[macdock] Get information on configured setup"
   command: "/usr/local/bin/dockutil --find '{{ item.name }}'"
   register: macdock_dockutil
   with_items: "{{ macdock_add_items }}"
@@ -37,7 +37,7 @@
   check_mode: no
   tags: macdock
 
-- name: '[dock] Add items to dock'
+- name: "[macdock] Add items to dock"
   command: "/usr/local/bin/dockutil \
           --add '{{ item.item.path }}' \
           --position {{ item.item.pos }} \
@@ -50,7 +50,7 @@
   notify: Restart Dock
   tags: macdock
 
-- name: '[dock] Get information on current setup'
+- name: "[macdock] Get information on current setup"
   command: "/usr/local/bin/dockutil --find '{{ item.name }}'"
   register: macdock_dockutil_current
   with_items: "{{ macdock_add_items }}"
@@ -59,7 +59,7 @@
   check_mode: no
   tags: macdock
 
-- name: '[dock] Moving items'
+- name: "[macdock] Moving items"
   command: "/usr/local/bin/dockutil --move '{{ item.item.name }}' --position {{ item.item.pos }} --no-restart"
   with_items: "{{ macdock_dockutil_current.results }}"
   loop_control:
@@ -67,6 +67,84 @@
   when:
   - (item.item.name ~ " was found in persistent-apps at slot " ~ item.item.pos ~ " in") not in item.stdout
   - (item.item.name ~ " was not found") not in item.stdout
+  notify: Restart Dock
+  tags: macdock
+
+# DEFAULTS
+# defaults write com.apple.dock magnification -bool true
+- name: "[macdock] System Preferences > Dock > Magnification: {{ macdock_magnify }}"
+  osx_defaults:
+    domain: com.apple.dock
+    key: magnification
+    type: bool
+    value: "{{ macdock_magnify }}"
+    state: present
+  notify: Restart Dock
+  tags: macdock
+
+# defaults write com.apple.dock mineffect -string "scale"
+- name: "[macdock] System Preferences > Dock > Minimize windows using: Scale effect"
+  osx_defaults:
+    domain: com.apple.dock
+    key: mineffect
+    type: string
+    value: 'scale'
+    state: present
+  notify: Restart Dock
+  tags: macdock
+
+# defaults write com.apple.dock minimize-to-application -bool true
+- name: "[macdock] System Preferences > Dock > Minimize windows into application icon"
+  osx_defaults:
+    domain: com.apple.dock
+    key: minimize-to-application
+    type: bool
+    value: true
+    state: present
+  notify: Restart Dock
+  tags: macdock
+
+# defaults write com.apple.dock autohide -bool false
+- name: "[macdock] System Preferences > Dock > Automatically hide and show the Dock: {{ macdock_hide }}"
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: "{{ macdock_hide }}"
+    state: present
+  notify: Restart Dock
+  tags: macdock
+
+# defaults write com.apple.dock autohide-time-modifier -float 0.5
+- name: "[macdock] System Preferences > Dock > Automatically hide and show the Dock (duration - 0.5)"
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide-time-modifier
+    type: float
+    value: 0.5
+    state: present
+  notify: Restart Dock
+  tags: macdock
+
+# defaults write com.apple.dock autohide-delay -float 0
+- name: "[macdock] System Preferences > Dock > Automatically hide and show the Dock (delay - 0)"
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide-delay
+    type: float
+    value: 0
+    state: present
+  notify: Restart Dock
+  tags: macdock
+
+# defaults write com.apple.dock show-process-indicators -bool true
+- name: "[macdock] System Preferences > Dock > Show indicators for open applications"
+  osx_defaults:
+    domain: com.apple.dock
+    key: show-process-indicators
+    type: bool
+    value: true
+    state: present
   notify: Restart Dock
   tags: macdock
 ...

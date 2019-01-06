@@ -1,6 +1,10 @@
 ---
 # defaults file for ansible-macdock
 
+macdock_hide: no  # Automatically hide/show dock?
+
+macdock_magnify: no  # Use dock magnify effect?
+
 macdock_items_remove_all: no
 
 macdock_remove_items:
