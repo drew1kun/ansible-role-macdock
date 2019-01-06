@@ -16,6 +16,8 @@ Role Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
+| **macdock_hide** | Automatically hide/show dock? | `no` |
+| **macdock_magnify** | Use dock magnify effect? | `no` |
 | **macdock_items_remove_all** | Remove all currently configured items from dock before dock customization | `no` |
 | **macdock_remove_items[]** | Remove only specified dock items. Only used if **macdock_items_remove_all** is set to `no` | see [`defaults/main.yml`](defaults/main.yml) |
 | **macdock_add_items[]** | List of items to be added to dock | see [`vars/Debian.yml`](vars/Debian.yml) |
