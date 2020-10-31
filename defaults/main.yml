@@ -24,36 +24,35 @@ macdock_remove_items:
   - App Store
 
 macdock_add_items:
+  # others section:
+  - name: Applications
+    path: "/Applications"
+    pos: 1
+    section: others
+  # apps section:
   - name: Safari
     path: "/Applications/Safari.app"
     pos: 1
     section: apps  # `apps | others`. If not specified, it defaults to `apps`
-  - name: Grab
-    path: "/Applications/Utilities/Grab.app"
-    pos: 2
   - name: Calculator
-    path: "/Applications/Calculator.app"
-    pos: 3
+    path: "/System/Applications/Calculator.app"
+    pos: 2
   - name: System Preferences
-    path: "/Applications/System Preferences.app"
-    pos: 4
+    path: "/System/Applications/System Preferences.app"
+    pos: 3
   - name: Console
-    path: "/Applications/Utilities/Console.app"
-    pos: 5
+    path: "/System/Applications/Utilities/Console.app"
+    pos: 4
   - name: Activity Monitor
-    path: "/Applications/Utilities/Activity Monitor.app"
-    pos: 6
+    path: "/System/Applications/Utilities/Activity Monitor.app"
+    pos: 5
   - name: Network Utility
     path: "/System/Library/CoreServices/Applications/Network Utility.app"
-    pos: 7
+    pos: 6
   - name: Screen Sharing
     path: "/System/Library/CoreServices/Applications/Screen Sharing.app"
-    pos: 8
+    pos: 7
   - name: Terminal
-    path: "/Applications/Utilities/Terminal.app"
-    pos: 9
-  - name: Applications
-    path: "/Applications"
-    pos: first
-    section: others
+    path: "/System/Applications/Utilities/Terminal.app"
+    pos: 8
 ...

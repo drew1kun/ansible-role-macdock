@@ -1,0 +1,84 @@
+---
+- name: "[macdock_look] Get info about items to be removed"
+  command: "/usr/local/bin/dockutil --find '{{ item }}'"
+  register: macdock_items_remove
+  with_items: "{{ macdock_remove_items }}"
+  changed_when: false
+  failed_when: false
+  check_mode: no
+  when: not macdock_items_remove_all|bool
+  tags:
+  - macdock
+  - macdock_look
+
+- name: "[macdock_look] Remove all dock items"
+  command: "/usr/local/bin/dockutil --remove all --no-restart"
+  register: macdock_removed_items_task
+  when: macdock_items_remove_all|bool
+  tags:
+  - macdock
+  - macdock_look
+
+- name: "[macdock_look] Remove all unwanted dock items"
+  command: "/usr/local/bin/dockutil --remove '{{ item.item }}' --no-restart"
+  with_items: "{{ macdock_items_remove.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+  - not macdock_items_remove_all|bool
+  - (item.item ~ " was found in persistent-apps") in item.stdout
+  notify: Restart Dock
+  tags:
+  - macdock
+  - macdock_look
+
+- name: "[macdock_look] Get information on initial setup"
+  command: "/usr/local/bin/dockutil --find '{{ item.name }}'"
+  register: macdock_dockutil
+  with_items: "{{ macdock_add_items }}"
+  changed_when: false
+  failed_when: false
+  check_mode: no
+  tags:
+  - macdock
+  - macdock_look
+
+- name: "[macdock_look] Add items to dock"
+  command: "/usr/local/bin/dockutil \
+          --add '{{ item.item.path }}' \
+          --position {{ item.item.pos }} \
+          --section {{ item.item.section | default('apps') }} \
+          --no-restart"
+  with_items: "{{ macdock_dockutil.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: (item.item.name ~ " was not found in") in item.stdout
+  notify: Restart Dock
+  tags:
+  - macdock
+  - macdock_look
+
+- name: "[macdock_look] Get information on configured setup"
+  command: "/usr/local/bin/dockutil --find '{{ item.name }}'"
+  register: macdock_dockutil_current
+  with_items: "{{ macdock_add_items }}"
+  changed_when: false
+  failed_when: false
+  check_mode: no
+  tags:
+  - macdock
+  - macdock_look
+
+- name: "[macdock_look] Moving items"
+  command: "/usr/local/bin/dockutil --move '{{ item.item.name }}' --position {{ item.item.pos }} --no-restart"
+  with_items: "{{ macdock_dockutil_current.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+  - (item.item.name ~ " was found in persistent-" ~ (item.item.section|default('apps')) ~ " at slot " ~ item.item.pos ~ " in") not in item.stdout
+  - (item.item.name ~ " was not found") not in item.stdout
+  notify: Restart Dock
+  tags:
+  - macdock
+  - macdock_look
+...
