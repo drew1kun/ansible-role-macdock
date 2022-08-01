@@ -2,7 +2,7 @@
 # DEFAULTS
 # defaults write com.apple.dock magnification -bool true
 - name: "[macdock_defaults] System Preferences > Dock > Magnification: {{ macdock_magnify }}"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: magnification
     type: bool
@@ -15,7 +15,7 @@
 
 # defaults write com.apple.dock mineffect -string "scale"
 - name: "[macdock_defaults] System Preferences > Dock > Minimize windows using: Scale effect"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: mineffect
     type: string
@@ -28,7 +28,7 @@
 
 # defaults write com.apple.dock minimize-to-application -bool true
 - name: "[macdock_defaults] System Preferences > Dock > Minimize windows into application icon"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: minimize-to-application
     type: bool
@@ -41,7 +41,7 @@
 
 # defaults write com.apple.dock autohide -bool false
 - name: "[macdock_defaults] System Preferences > Dock > Automatically hide and show the Dock: {{ macdock_hide }}"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: autohide
     type: bool
@@ -54,7 +54,7 @@
 
 # defaults write com.apple.dock autohide-time-modifier -float 0.5
 - name: "[macdock_defaults] System Preferences > Dock > Automatically hide and show the Dock (duration - 0.5)"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: autohide-time-modifier
     type: float
@@ -67,7 +67,7 @@
 
 # defaults write com.apple.dock autohide-delay -float 0
 - name: "[macdock_defaults] System Preferences > Dock > Automatically hide and show the Dock (delay - 0)"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: autohide-delay
     type: float
@@ -80,7 +80,7 @@
 
 # defaults write com.apple.dock show-process-indicators -bool true
 - name: "[macdock_defaults] System Preferences > Dock > Show indicators for open applications"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: show-process-indicators
     type: bool
@@ -93,7 +93,7 @@
 
 # defaults write com.apple.dock expose-animation-duration -float 0.12
 - name: "[macdock_defaults] Speed up the Mission Control animations"
-  osx_defaults_new:
+  osx_defaults:
     domain: com.apple.dock
     key: expose-animation-duration
     type: float
