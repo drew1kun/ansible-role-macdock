@@ -5,7 +5,7 @@
   community.general.homebrew_cask:
     name: hpedrorodrigues/tools/dockutil
     state: present
-    sudo_password: "{{ macdock_become_pass | default (ansible_become_pass) }}"
+    sudo_password: "{{ macdock_become_pass }}"
   register: macdock_dockutils_result
   until: macdock_dockutils_result is successful
 
