@@ -1,5 +1,7 @@
 ---
 # defaults file for ansible-macdock
+# temporarily required for installing dockutil cask
+macdock_become_pass: 'secure_sudo_password'
 
 macdock_hide: no  # Automatically hide/show dock?
 

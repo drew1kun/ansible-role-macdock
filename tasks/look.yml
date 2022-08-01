@@ -1,4 +1,14 @@
 ---
+- name: "[macdock_look] Ensure dockutil is installed"
+  # temporary solution to https://github.com/kcrawford/dockutil/issues/127
+  # This should not be cask in the future and should not require password
+  community.general.homebrew_cask:
+    name: hpedrorodrigues/tools/dockutil
+    state: present
+    sudo_password: "{{ macdock_become_pass | default (ansible_become_pass) }}"
+  register: macdock_dockutils_result
+  until: macdock_dockutils_result is successful
+
 - name: "[macdock_look] Get info about items to be removed"
   command: "/usr/local/bin/dockutil --find '{{ item }}'"
   register: macdock_items_remove
