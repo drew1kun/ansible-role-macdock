@@ -57,4 +57,3 @@ macdock_add_items:
   - name: Terminal
     path: "/System/Applications/Utilities/Terminal.app"
     pos: 8
-...
