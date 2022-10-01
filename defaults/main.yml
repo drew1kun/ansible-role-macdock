@@ -3,11 +3,11 @@
 # temporarily required for installing dockutil cask
 macdock_become_pass: 'secure_sudo_password'
 
-macdock_hide: no  # Automatically hide/show dock?
+macdock_hide: false  # Automatically hide/show dock?
 
-macdock_magnify: no  # Use dock magnify effect?
+macdock_magnify: false  # Use dock magnify effect?
 
-macdock_items_remove_all: no
+macdock_items_remove_all: false
 
 macdock_remove_items:
   - Siri
