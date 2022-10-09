@@ -3,6 +3,16 @@
 [![MIT licensed][mit-badge]][mit-link]
 [![Galaxy Role][role-badge]][galaxy-link]
 
+
+DEPRECATION NOTICE
+----
+This role is being deprecated in favor of [ansible-collection-mac][mac-github-link].
+
+Collection on Galaxy: [drew1kun.mac][mac-galaxy-link]
+
+Description
+----
+
 Ansible role for programmatic MacOS Dock customization.
 
 Requirements
@@ -49,6 +59,9 @@ Andrew Shagayev | [e-mail](mailto:drewshg@gmail.com)
 
 [role-badge]: https://img.shields.io/badge/role-drew1kun.macdock-green.svg
 [galaxy-link]: https://galaxy.ansible.com/drew1kun/macdock/
+
+[mac-github-link]: https://github.com/drew1kun/ansible-collection-mac
+[mac-galaxy-link]: https://galaxy.ansible.com/drew1kun/mac
 
 [mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [mit-link]: https://raw.githubusercontent.com/drew1kun/ansible-macos_setup/master/LICENSE
